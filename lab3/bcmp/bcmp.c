@@ -29,26 +29,11 @@ int main(int argc, char *argv[]) {
       if (buf1[0] != buf2[0]) {
         found = 1;
         printf("byte %i -%i +%i\n", count, buf1[0], buf2[0]);
-        break;
       }
     } else {
-      // file 2 is shorter than file 1
-      found = 1;
-      printf("Reached end of file %s\n", argv[2]);
       break;
     }
     ++count;
-  }
-
-  if (!found) {
-    if (fread(buf2, BUFFER_SIZE, 1, f2)) {
-      // file 1 is shorter than file 2
-      found = 1;
-      printf("Reached end of file %s\n", argv[1]);
-    } else {
-      // no differences found
-      printf("Files are identical\n");
-    }
   }
 
   fclose(f1);

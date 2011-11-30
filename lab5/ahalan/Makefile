@@ -8,7 +8,7 @@
 
 all: ahalan
 
-ahalan: start.o main.o ahalan.o 
+ahalan: start.o main.o ahalan.o
 	ld -melf_i386 -g -o $@ $^
 
 ahalan.o: ahalan.asm

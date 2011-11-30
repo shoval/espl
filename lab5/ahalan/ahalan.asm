@@ -4,11 +4,13 @@ section	.text
 	extern myputs
 
 ahalan:					;void ahalan()
+	push	ebp
+	mov 	ebp, esp
 	push	msg
 	call	myputs
-	;ret
-	mov	eax,1	;system call number (sys_exit)
-	int	0x80	;call kernel
+    add 	esp,4
+	pop 	ebp
+	ret
 
 write:
 	push	ebp
@@ -19,10 +21,8 @@ write:
 	mov 	eax,4	;system call number (sys_write)
 	int 	0x80	;call kernel
 	pop 	ebp
-	;ret
-	mov	eax,1	;system call number (sys_exit)
-	int	0x80	;call kernel
-
+	ret
+	
 section	.data
 
 msg	db	'ahalan!',0xa	;our dear string

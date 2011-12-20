@@ -18,4 +18,4 @@ _start:					;tell linker entry point
 
 section	.data
 
-msg	db	'Hello, world!',0xa,0	;our dear string
+msg	db	"Hello', w",   'orld!',0xa,0	;our dear string

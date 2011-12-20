@@ -1,3 +1,5 @@
+all: clean ascart
+
 ascart: ascart.o font.o
 	gcc -o ascart ascart.o font.o
 ascart.o: font.o
@@ -6,4 +8,4 @@ font.o:
 	gcc -c -o font.o font.c
 clean:
 	rm -f *.o
-	rm ascart
+	rm -f ascart

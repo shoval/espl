@@ -9,34 +9,25 @@ void prsym(int idx) {
 		printf("%s\n", (*symbol)[iline]);
 }
 
-void prsymWord(int idxes[]) {
-	int idx;
-	for(idx = 0;; ++idx) {
-				if(!idxes[idx])
-					break;
-				printf("%i : %i\n", idx, idxes[idx]);
-			}
-	/*
-	int iline;
-	for(iline = 0; iline!=SYMBOL_HEIGHT; ++iline) {
-		int i;
-		for (i=0; i < sizeof(idxes); ++i) {
-		  char *(*symbol)[SYMBOL_HEIGHT] = &alphabet[idxes[i]];
-		  printf("%s", (*symbol)[iline]);
-		}
+void prsymwrd(char* word) {
+  int iline;
+  for(iline = 0; iline!=SYMBOL_HEIGHT; ++iline) {
+	char* tword = word;
+	while (*tword != '\0') {
+	  int idx = *tword - 32;
+	  char *(*symbol)[SYMBOL_HEIGHT] = &alphabet[idx];
+	  printf("%s", (*symbol)[iline]);
+	  ++tword;
 	}
-	*/
+	printf("\n");
+  }
 }
 
-
 int main(int argc, char **argv) {
-	/*
-	char bla = argv[1][0];
-	int bli = bla - 32;
-	printf("%i\n", bli);
-	*/
-	int numbers[] = {1, 2, 3, 4, 5};
-	//printf("%i\n", numbers[1]);
-	prsymWord(numbers);
-	return 0;
+  if (argc == 2) {
+	prsymwrd(argv[1]);
+  } else {
+	printf("Invalid arguments (expecting 1)\n");
+  }
+  return 0;
 }

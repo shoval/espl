@@ -26,11 +26,11 @@ int main(int argc, char *argv[]) {
 
 	/* open pipe */
 
-	 if(pipe(p) == -1)
-	 {
+	if(pipe(p) == -1)
+	{
 		perror("pipe call error");
 		return 1;
-	 }
+	}
 
 	switch(pid = fork()){
 	case -1: perror("error: fork call");
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 		printf("exit: %i\n", WEXITSTATUS(exval));
 	}
 
-	return 8;
+	return 0;
 }
 
 

@@ -22,8 +22,8 @@ int read_command() {
     if(len>0 && command[len-1]=='\n')
       command[len-1] = '\0';
     return 1;
-  } 
-  
+  }
+
   return 0;
 }
 
@@ -46,7 +46,7 @@ void split_command() {
         sep = *s;
       } else if(sep==*s) {
         sep = '\0';
-      } 
+      }
       break;
     case '\\':
       ++s;
@@ -97,16 +97,16 @@ void free_args() {
 void run_program() {
   int pid, status, inout[2], status2;
   static char ststr[8];
-	
+
 	// for pipe
 	char command2[BUF_LEN+1];
 	int argc2 = 0;
 	char *argv2[BUF_LEN+1];
 	static char ststr2[8];
-	
+
 	inout[0] = 0;
 	inout[1] = 1;
-	if (argc >= 3) { 
+	if (argc >= 3) {
 		char* filename;
 		if (!strcmp(argv[argc-2], ">")) { //write to file
 			filename = argv[argc-1];
@@ -146,7 +146,7 @@ void run_program() {
 			}
 		}
 	}
-	
+
 	//test
 	/*
 	int j = 0;
@@ -163,7 +163,6 @@ void run_program() {
 
 	pid=fork();
   if(pid==0) { // first child
-		printf("in first child");
 		if (argc2 == 0) {
 			dup2(inout[0], 0);
 		} else {
@@ -173,17 +172,16 @@ void run_program() {
 		execvp(argv[0], argv);
 		perror(argv[0]);
   } else if(pid > 0) { // parent
-		printf("first child is: %i\n", pid);
-		if (argc2 > 0) { 
+		if (argc2 > 0) {
 			int pid2=fork();
 			if (pid2==0) { // second child
-				printf("in second child");
 				close(inout[1]);
 				dup2(inout[0], 0);
 				execvp(argv2[0], argv2);
 				perror(argv2[0]);
 			} else if (pid2>0) { // still parent
-				printf("second child is: %i\n", pid2);
+				close(inout[1]);
+				close(inout[0]);
 				waitpid(pid2, &status2, 0);
 				sprintf(ststr2, "%d", status2);
 				setenv("?", ststr2, 1);
@@ -250,6 +248,6 @@ int main(int _argc, char **_argv) {
 
   return 0;
 }
-    
 
-    
+
+

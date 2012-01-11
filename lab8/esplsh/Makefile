@@ -13,7 +13,7 @@ all: clean esplsh
 esplsh: esplsh.o
 
 clean:
-	rm -f *.o
+	rm -f *.o esplsh
 
 distclean: clean
 	rm -f esplsh *~
